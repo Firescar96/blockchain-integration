@@ -1,0 +1,551 @@
+{
+  "contract_name": "Tree",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_spender",
+          "type": "address"
+        },
+        {
+          "name": "_value",
+          "type": "uint256"
+        }
+      ],
+      "name": "approve",
+      "outputs": [
+        {
+          "name": "success",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "tenereToken",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "totalSupply",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getSensorsLength",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_from",
+          "type": "address"
+        },
+        {
+          "name": "_to",
+          "type": "address"
+        },
+        {
+          "name": "_value",
+          "type": "uint256"
+        }
+      ],
+      "name": "transferFrom",
+      "outputs": [
+        {
+          "name": "success",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_addr",
+          "type": "address"
+        }
+      ],
+      "name": "addManager",
+      "outputs": [],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "tenereTokenAddr",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "managers",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "sensors",
+      "outputs": [
+        {
+          "name": "name",
+          "type": "bytes32"
+        },
+        {
+          "name": "reward",
+          "type": "uint256"
+        },
+        {
+          "name": "recordHash1",
+          "type": "bytes32"
+        },
+        {
+          "name": "recordHash2",
+          "type": "bytes32"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_name",
+          "type": "bytes32"
+        },
+        {
+          "name": "_reward",
+          "type": "uint256"
+        },
+        {
+          "name": "_recordHash1",
+          "type": "bytes32"
+        },
+        {
+          "name": "_recordHash2",
+          "type": "bytes32"
+        }
+      ],
+      "name": "addSensor",
+      "outputs": [],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_owner",
+          "type": "address"
+        }
+      ],
+      "name": "balanceOf",
+      "outputs": [
+        {
+          "name": "balance",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_sensor",
+          "type": "bytes32"
+        },
+        {
+          "name": "_patron",
+          "type": "address"
+        },
+        {
+          "name": "_recordHash1",
+          "type": "bytes32"
+        },
+        {
+          "name": "_recordHash2",
+          "type": "bytes32"
+        }
+      ],
+      "name": "setSensorRecord",
+      "outputs": [],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_to",
+          "type": "address"
+        },
+        {
+          "name": "_value",
+          "type": "uint256"
+        }
+      ],
+      "name": "transfer",
+      "outputs": [
+        {
+          "name": "success",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "name": "sensorInfo",
+      "outputs": [
+        {
+          "name": "name",
+          "type": "bytes32"
+        },
+        {
+          "name": "reward",
+          "type": "uint256"
+        },
+        {
+          "name": "recordHash1",
+          "type": "bytes32"
+        },
+        {
+          "name": "recordHash2",
+          "type": "bytes32"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getManagersLength",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_owner",
+          "type": "address"
+        },
+        {
+          "name": "_spender",
+          "type": "address"
+        }
+      ],
+      "name": "allowance",
+      "outputs": [
+        {
+          "name": "remaining",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "isManager",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "_addr",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "sensor",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "name": "patron",
+          "type": "address"
+        }
+      ],
+      "name": "UpdatedRecord",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "_from",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_to",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "_value",
+          "type": "uint256"
+        }
+      ],
+      "name": "Transfer",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "_owner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_spender",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "_value",
+          "type": "uint256"
+        }
+      ],
+      "name": "Approval",
+      "type": "event"
+    }
+  ],
+  "unlinked_binary": "0x6060604052341561000f57600080fd5b604051602080610d4a833981016040528080519150505b600080546001810161003883826100b1565b916000526020600020900160005b8154600160a060020a033381166101009390930a83810290820219909216919091179092556000908152600160208190526040909120805460ff1916909117905560028054918416600160a060020a0319928316811790915560038054909216179055505b506100fc565b8154818355818115116100d5576000838152602090206100d59181019083016100db565b5b505050565b6100f991905b808211156100f557600081556001016100e1565b5090565b90565b610c3f8061010b6000396000f300606060405236156100d55763ffffffff60e060020a600035041663095ea7b381146100da5780630a7da8ae1461011057806318160ddd1461013f57806321133f461461016457806323b872dd146101895780632d06177a146101c55780633494aa9f146101e65780633d39c26014610215578063412f2e82146102475780636cd1f5d41461028957806370a08231146102aa5780638c58ddf8146102db578063a9059cbb14610305578063cf805fa61461033b578063d570fb341461037d578063dd62ed3e146103a2578063f3ae2415146103d9575b600080fd5b34156100e557600080fd5b6100fc600160a060020a036004351660243561040c565b604051901515815260200160405180910390f35b341561011b57600080fd5b6101236104b6565b604051600160a060020a03909116815260200160405180910390f35b341561014a57600080fd5b6101526104c5565b60405190815260200160405180910390f35b341561016f57600080fd5b61015261052f565b60405190815260200160405180910390f35b341561019457600080fd5b6100fc600160a060020a0360043581169060243516604435610536565b604051901515815260200160405180910390f35b34156101d057600080fd5b6101e4600160a060020a03600435166105ee565b005b34156101f157600080fd5b610123610678565b604051600160a060020a03909116815260200160405180910390f35b341561022057600080fd5b610123600435610687565b604051600160a060020a03909116815260200160405180910390f35b341561025257600080fd5b61025d6004356106b9565b604051938452602084019290925260408084019190915260608301919091526080909101905180910390f35b341561029457600080fd5b6101e46004356024356044356064356106f3565b005b34156102b557600080fd5b610152600160a060020a03600435166107d1565b60405190815260200160405180910390f35b34156102e657600080fd5b6101e4600435600160a060020a036024351660443560643561084e565b005b341561031057600080fd5b6100fc600160a060020a03600435166024356109c7565b604051901515815260200160405180910390f35b341561034657600080fd5b61025d600435610a71565b604051938452602084019290925260408084019190915260608301919091526080909101905180910390f35b341561038857600080fd5b610152610a98565b60405190815260200160405180910390f35b34156103ad57600080fd5b610152600160a060020a0360043581169060243516610a9f565b60405190815260200160405180910390f35b34156103e457600080fd5b6100fc600160a060020a0360043516610b25565b604051901515815260200160405180910390f35b600160a060020a03331660009081526001602052604081205460ff16151561043357600080fd5b600354600160a060020a031663095ea7b3848460006040516020015260405160e060020a63ffffffff8516028152600160a060020a0390921660048301526024820152604401602060405180830381600087803b151561049257600080fd5b6102c65a03f115156104a357600080fd5b50505060405180519150505b5b92915050565b600354600160a060020a031681565b600354600090600160a060020a03166318160ddd82604051602001526040518163ffffffff1660e060020a028152600401602060405180830381600087803b151561050f57600080fd5b6102c65a03f1151561052057600080fd5b50505060405180519150505b90565b6004545b90565b600160a060020a03331660009081526001602052604081205460ff16151561055d57600080fd5b600354600160a060020a03166323b872dd85858560006040516020015260405160e060020a63ffffffff8616028152600160a060020a0393841660048201529190921660248201526044810191909152606401602060405180830381600087803b15156105c957600080fd5b6102c65a03f115156105da57600080fd5b50505060405180519150505b5b9392505050565b600160a060020a03331660009081526001602052604090205460ff16151561061557600080fd5b60008054600181016106278382610b3a565b916000526020600020900160005b8154600160a060020a038086166101009390930a838102910219909116179091556000908152600160208190526040909120805460ff19169091179055505b5b50565b600254600160a060020a031681565b600080548290811061069557fe5b906000526020600020900160005b915054906101000a9004600160a060020a031681565b60048054829081106106c757fe5b906000526020600020906004020160005b50805460018201546002830154600390930154919350919084565b6106fb610b64565b600160a060020a03331660009081526001602052604090205460ff16151561072257600080fd5b608060405190810160409081528682526020820186905281018490526060810183905260048054919250906001810161075b8382610b8b565b916000526020600020906004020160005b50829081518155602082015181600101556040820151600282015560608201516003909101555050600085815260056020526040902081908151815560208201518160010155604082015160028201556060820151600390910155505b5b5050505050565b600354600090600160a060020a03166370a0823183836040516020015260405160e060020a63ffffffff8416028152600160a060020a039091166004820152602401602060405180830381600087803b151561082c57600080fd5b6102c65a03f1151561083d57600080fd5b50505060405180519150505b919050565b600160a060020a03331660009081526001602052604081205460ff16151561087557600080fd5b50600084815260056020526040908190206002810184905560038082018490555460018201549192600160a060020a03909116916397304ced915160e060020a63ffffffff84160281526004810191909152602401600060405180830381600087803b15156108e357600080fd5b6102c65a03f115156108f457600080fd5b50506003546001830154600160a060020a03909116915063a9059cbb90869060006040516020015260405160e060020a63ffffffff8516028152600160a060020a0390921660048301526024820152604401602060405180830381600087803b151561095f57600080fd5b6102c65a03f1151561097057600080fd5b50505060405180519050507f67b06239df8727111cdbacf21a34b4d5763aa27745d1197fef2135cdca9bc1828585604051918252600160a060020a031660208201526040908101905180910390a15b5b5050505050565b600160a060020a03331660009081526001602052604081205460ff1615156109ee57600080fd5b600354600160a060020a031663a9059cbb848460006040516020015260405160e060020a63ffffffff8516028152600160a060020a0390921660048301526024820152604401602060405180830381600087803b151561049257600080fd5b6102c65a03f115156104a357600080fd5b50505060405180519150505b5b92915050565b60056020526000908152604090208054600182015460028301546003909301549192909184565b6000545b90565b600354600090600160a060020a031663dd62ed3e8484846040516020015260405160e060020a63ffffffff8516028152600160a060020a03928316600482015291166024820152604401602060405180830381600087803b151561049257600080fd5b6102c65a03f115156104a357600080fd5b50505060405180519150505b92915050565b60016020526000908152604090205460ff1681565b815481835581811511610b5e57600083815260209020610b5e918101908301610bbd565b5b505050565b60806040519081016040908152600080835260208301819052908201819052606082015290565b815481835581811511610b5e57600402816004028360005260206000209182019101610b5e9190610bde565b5b505050565b61052c91905b80821115610bd75760008155600101610bc3565b5090565b90565b61052c91905b80821115610bd757600080825560018201819055600282018190556003820155600401610be4565b5090565b905600a165627a7a7230582010975380c3759a7ea3814230e27ca5c0674d99a621b78bf7dba627f4da6f18060029",
+  "networks": {
+    "1503542349791": {
+      "links": {},
+      "events": {
+        "0x67b06239df8727111cdbacf21a34b4d5763aa27745d1197fef2135cdca9bc182": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "sensor",
+              "type": "bytes32"
+            },
+            {
+              "indexed": false,
+              "name": "patron",
+              "type": "address"
+            }
+          ],
+          "name": "UpdatedRecord",
+          "type": "event"
+        },
+        "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "_from",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "_to",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "_value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Transfer",
+          "type": "event"
+        },
+        "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "_owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "_spender",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "_value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Approval",
+          "type": "event"
+        }
+      },
+      "updated_at": 1503556782953,
+      "address": "0x76fb7f3f75eaa6506292c9c25172f724a7e2624b"
+    },
+    "1503609258117": {
+      "links": {},
+      "events": {
+        "0x67b06239df8727111cdbacf21a34b4d5763aa27745d1197fef2135cdca9bc182": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "sensor",
+              "type": "bytes32"
+            },
+            {
+              "indexed": false,
+              "name": "patron",
+              "type": "address"
+            }
+          ],
+          "name": "UpdatedRecord",
+          "type": "event"
+        },
+        "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "_from",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "_to",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "_value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Transfer",
+          "type": "event"
+        },
+        "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "_owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "_spender",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "_value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Approval",
+          "type": "event"
+        }
+      },
+      "updated_at": 1503611559922,
+      "address": "0xe294889dd2ad7f5cb64015d52a42be661923dd7d"
+    }
+  },
+  "schema_version": "0.0.5",
+  "updated_at": 1503611559922
+}
