@@ -72,6 +72,7 @@ exports = module.exports = function (server) {
             })
           } else {
             console.log("add sensor");
+            console.log(sensor, deployed.address, 1, hash1, hash2);
             deployed.addSensor.estimateGas(sensor, deployed.address, 1, hash1, hash2, {
               from: web3.eth.accounts[0]
             })
@@ -80,7 +81,7 @@ exports = module.exports = function (server) {
               deployed.addSensor(sensor, deployed.address, 1, hash1, hash2, {
                 from: web3.eth.accounts[0],
                 gas: gas*2,
-              });
+              }).then(res => console.log(res));
             })
           }
         })

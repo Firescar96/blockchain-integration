@@ -45,7 +45,8 @@ contract Tree is ERC20Interface {
 
   function addSensor(bytes32 _name, address _patron, uint _reward, bytes32 _recordHash1, bytes32 _recordHash2) onlyManagers {
     Sensor memory sensor = Sensor({name: _name, reward: _reward, recordHash1: _recordHash1, recordHash2: _recordHash2});
-    sensorPosition[_name] = sensors.push(sensor) -1;
+    uint numSensors = sensors.push(sensor);
+    sensorPosition[_name] =  numSensors - 1;
     tenereToken.mintTokens(sensor.reward);
     tenereToken.transfer(_patron, sensor.reward);
     isStoredSensor[_name] = true;

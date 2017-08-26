@@ -12,10 +12,6 @@ class Home extends React.Component {
 
     this.state = {
       sensors: [
-        {
-          name: "power",
-          entries: [],
-        }
       ],
       selectedSensor: 0,
       detail: '',
@@ -60,14 +56,17 @@ class Home extends React.Component {
       )
     })
 
-    let records = this.state.sensors[this.state.selectedSensor].entries.map((record, index) => {
-      return (
-        <div key={index} onClick={this.getRecord(record.hash, !!record.path)}>
-          <span>{record.path || 'Initial Record'}</span>
-          <i className="fa fa-chevron-right"  aria-hidden="true"/>
-        </div>
-      )
-    })
+    let records = []
+    if(this.state.sensors.length > 0) {
+      records = this.state.sensors[this.state.selectedSensor].entries.map((record, index) => {
+        return (
+          <div key={index} onClick={this.getRecord(record.hash, !!record.path)}>
+            <span>{record.path || 'Initial Record'}</span>
+            <i className="fa fa-chevron-right"  aria-hidden="true"/>
+          </div>
+        )
+      })
+    }
     records.reverse()
 
     return (
