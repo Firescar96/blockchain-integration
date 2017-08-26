@@ -16,7 +16,7 @@ contract Tree is ERC20Interface {
     bytes32 recordHash2;
   }
   Sensor[] public sensors;
-  mapping(bytes32 => Sensor) public sensorInfo;
+  mapping(bytes32 => uint) public sensorPosition;
   event UpdatedRecord(bytes32 sensor, address patron);
 
   modifier onlyManagers() {
@@ -45,15 +45,19 @@ contract Tree is ERC20Interface {
   function addSensor(bytes32 _name, uint _reward, bytes32 _recordHash1, bytes32 _recordHash2) onlyManagers {
     Sensor memory sensor = Sensor({name: _name, reward: _reward, recordHash1: _recordHash1, recordHash2: _recordHash2});
     sensors.push(sensor);
-    sensorInfo[_name] = sensor;
+    sensorPosition[_name] = sensors.length-1;
   }
   function getSensorsLength() constant returns (uint) {
     return sensors.length;
   }
+  function getSensorInfo(bytes32 _sensor) constant returns(uint, bytes32, bytes32) {
+    Sensor storage sensor = sensors[sensorPosition[_sensor]];
+    return (sensor.reward, sensor.recordHash1, sensor.recordHash2);
+  }
   //when called new sensor data is recorded and the patron is rewarded with the appropriate amount of
   //tokens for their contribution
   function setSensorRecord(bytes32 _sensor, address _patron, bytes32 _recordHash1, bytes32 _recordHash2) onlyManagers {
-    Sensor storage sensor = sensorInfo[_sensor];
+    Sensor storage sensor = sensors[sensorPosition[_sensor]];
     sensor.recordHash1 = _recordHash1;
     sensor.recordHash2 = _recordHash2;
     tenereToken.mintTokens(sensor.reward);

@@ -118,7 +118,6 @@ class Home extends React.Component {
 
             //parse out the stored hash of the sensor's manifest
             let hash = web3.toAscii(sensorInfo[2]) + web3.toAscii(sensorInfo[3]);
-
             //create a fetch request
             let request = new Request('http://localhost:8500/bzzr:/'+hash);
             fetch(request).then(response => {
