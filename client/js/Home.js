@@ -106,10 +106,11 @@ class Home extends React.Component {
     Tree.deployed().then(deployed => {
       //get the number of sensors added to the contract
       deployed.getSensorsLength().then(length => {
-        let sensorPromises = Array.from(Array(length),(x,i)=>i) //shorthand to create an array [1..length]
+        let sensorPromises = Array.from(Array(length.toNumber()),(x,i)=>i) //shorthand to create an array [1..length]
         .map(i => deployed.sensors(i))
         return Q.all(sensorPromises);
       }).then(sensors => {
+        console.log(sensors);
         return Q.all(
           //using the info for each sensor
           sensors.map(sensorInfo => {
@@ -135,6 +136,8 @@ class Home extends React.Component {
         )
       })
       .then(sensors => {
+        console.log(sensors);
+        let state = this.state
         this.setState({sensors: sensors})
       })
 

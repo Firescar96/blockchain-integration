@@ -3,6 +3,7 @@ const INITIAL_MANIFST = '4f983f498d42445c8c54a7dbe64542e30dd3ac0d9f513b4fafae05e
 const contract = require("truffle-contract");
 const Web3 = require('web3');
 const osc = require('osc');
+const Q = require('q');
 
 exports = module.exports = function (server) {
   const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
@@ -18,43 +19,73 @@ exports = module.exports = function (server) {
   Tree.setProvider(new Web3.providers.HttpProvider("http://localhost:8545"));
   Tree.deployed().then(function(deployed) {
 
-    deployed.getSensorInfo("power").then(sensorInfo => {
-      let hash = web3.toAscii(sensorInfo[1]) + web3.toAscii(sensorInfo[2]);
-      let manifest = execSync('curl http://localhost:8500/bzzr:/'+hash+' 2> /dev/null').toString();
+    udpPort.on('message', (message) => {
+      console.log('received new sensor data', message);
+      let sensor = message.address.split('/')[1]
+      let date = new Date();
 
-      let manifestHash;
-      if (manifest.indexOf('404 page not found') !== -1) {
-        manifestHash = INITIAL_MANIFST;
-      } else {
-        manifestHash = hash;
-      }
+      deployed.isStoredSensor(sensor).then(isStored => {
+        let manifestHashPromise = Q.defer();
 
-      udpPort.on('message', (message) => {
-        console.log(message);
+        if(!isStored) {
+          manifestHashPromise.resolve(
+            execSync('curl -X POST http://localhost:8500/bzz: -H "Content-Type: text/plain" --data \'Initial Record\'  2> /dev/null').toString()
+          )
+        } else {
+          deployed.getSensorInfo(sensor).then(sensorInfo => {
+            console.log(sensorInfo);
+            let storedHash = web3.toAscii(sensorInfo[1]).replace(/\W/g, '') + web3.toAscii(sensorInfo[2]).replace(/\W/g, '');
+            console.log(storedHash);
 
-        return;
-        let date = new Date();
+            let manifest = execSync('curl http://localhost:8500/bzzr:/'+storedHash+' 2> /dev/null').toString();
 
-        //TODO: get this hash by uploading some content from the tenere tree
-        let newHash = '4f983f498d42445c8c54a7dbe64542e30dd3ac0d9f513b4fafae05e28c852b9b';
+            if (manifest.indexOf('404 page not found') !== -1) {
+              manifestHashPromise.resolve(
+                execSync('curl -X POST http://localhost:8500/bzz: -H "Content-Type: text/plain" --data \'Initial Record\'  2> /dev/null').toString()
+              )
+            } else {
+              manifestHashPromise.resolve(storedHash);
+            }
+          })
+        }
 
-        let newManifestHash = execSync('swarm manifest add ' + manifestHash +
-          ' ' + date.toISOString() + ' ' + newHash).toString();
-        let hash1 = newManifestHash.substring(0, 32);
-        let hash2 = newManifestHash.substring(32);
+        manifestHashPromise.promise.then(manifestHash => {
+          let pathHash = execSync('curl -X POST http://localhost:8500/bzz: -H "Content-Type: text/plain" --data \'' + message.args[0] + '\'  2> /dev/null').toString();
 
-        //get a gas estimate for the upload
-        deployed.setSensorRecord.estimateGas("power", deployed.address, hash1, hash2, {
-          from: web3.eth.accounts[0]
-        })
-        .then( gas => {
-          //upload the reference to the swarm file to the Tree contract
-          deployed.setSensorRecord("power", deployed.address, hash1, hash2, {
-            from: web3.eth.accounts[0],
-            gas: gas*2,
-          });
+          let newManifestHash = execSync('swarm manifest add ' + manifestHash +
+          ' ' + date.toISOString() + ' ' + pathHash).toString();
+
+          let hash1 = newManifestHash.substring(0, 32);
+          let hash2 = newManifestHash.substring(32);
+
+          if(isStored) {
+            //get a gas estimate for the upload
+            deployed.setSensorRecord.estimateGas(sensor, deployed.address, hash1, hash2, {
+              from: web3.eth.accounts[0]
+            })
+            .then( gas => {
+              //upload the reference to the swarm file to the Tree contract
+              deployed.setSensorRecord(sensor, deployed.address, hash1, hash2, {
+                from: web3.eth.accounts[0],
+                gas: gas*2,
+              });
+            })
+          } else {
+            console.log("add sensor");
+            deployed.addSensor.estimateGas(sensor, deployed.address, 1, hash1, hash2, {
+              from: web3.eth.accounts[0]
+            })
+            .then( gas => {
+              //upload the reference to the swarm file to the Tree contract
+              deployed.addSensor(sensor, deployed.address, 1, hash1, hash2, {
+                from: web3.eth.accounts[0],
+                gas: gas*2,
+              });
+            })
+          }
         })
       })
+
     })
   });
 };

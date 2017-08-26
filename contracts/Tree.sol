@@ -17,6 +17,7 @@ contract Tree is ERC20Interface {
   }
   Sensor[] public sensors;
   mapping(bytes32 => uint) public sensorPosition;
+  mapping(bytes32 => bool) public isStoredSensor;
   event UpdatedRecord(bytes32 sensor, address patron);
 
   modifier onlyManagers() {
@@ -42,27 +43,37 @@ contract Tree is ERC20Interface {
   //remove manager
   //TODO:
 
-  function addSensor(bytes32 _name, uint _reward, bytes32 _recordHash1, bytes32 _recordHash2) onlyManagers {
+  function addSensor(bytes32 _name, address _patron, uint _reward, bytes32 _recordHash1, bytes32 _recordHash2) onlyManagers {
     Sensor memory sensor = Sensor({name: _name, reward: _reward, recordHash1: _recordHash1, recordHash2: _recordHash2});
-    sensors.push(sensor);
-    sensorPosition[_name] = sensors.length-1;
+    sensorPosition[_name] = sensors.push(sensor) -1;
+    tenereToken.mintTokens(sensor.reward);
+    tenereToken.transfer(_patron, sensor.reward);
+    isStoredSensor[_name] = true;
+    UpdatedRecord(_name, _patron);
   }
   function getSensorsLength() constant returns (uint) {
     return sensors.length;
   }
   function getSensorInfo(bytes32 _sensor) constant returns(uint, bytes32, bytes32) {
+    require(isStoredSensor[_sensor]);
     Sensor storage sensor = sensors[sensorPosition[_sensor]];
     return (sensor.reward, sensor.recordHash1, sensor.recordHash2);
   }
   //when called new sensor data is recorded and the patron is rewarded with the appropriate amount of
   //tokens for their contribution
   function setSensorRecord(bytes32 _sensor, address _patron, bytes32 _recordHash1, bytes32 _recordHash2) onlyManagers {
+    require(isStoredSensor[_sensor]);
     Sensor storage sensor = sensors[sensorPosition[_sensor]];
     sensor.recordHash1 = _recordHash1;
     sensor.recordHash2 = _recordHash2;
     tenereToken.mintTokens(sensor.reward);
     tenereToken.transfer(_patron, sensor.reward);
     UpdatedRecord(_sensor, _patron);
+  }
+  function setSensorReward(bytes32 _sensor, uint _reward) {
+    require(isStoredSensor[_sensor]);
+    Sensor storage sensor = sensors[sensorPosition[_sensor]];
+    sensor.reward = _reward;
   }
 
   function totalSupply() constant returns (uint) {

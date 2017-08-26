@@ -10,6 +10,17 @@ let udpPort = new osc.UDPPort({
 udpPort.open()
 
 udpPort.send({
-  address: '/',
-  args: 'asdad'
+  address: '/muse',
+  args: 'Some head data goes here'
+})
+
+udpPort.send({
+  address: '/power',
+  args: 'and some more voltage data'
+})
+
+
+udpPort.send({
+  address: '/tester',
+  args: 'Some head data goes here'
 })
